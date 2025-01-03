@@ -19,7 +19,7 @@ public class Main {
         String s3 = sc.nextLine();
         System.out.println("s3 = " + s3);
 
-        TestApp app = new TestApp();
+        App app = new App();
         app.run();
     }
 }

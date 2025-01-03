@@ -1,12 +1,7 @@
 package com.ll.wiseSaying;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -20,7 +15,7 @@ public class FirstTest {
 
     @Test
     void t2() {
-        TestApp app = new TestApp();
+        App app = new App();
         app.run();
 
         // aaa가 출력되는가?
@@ -44,6 +39,17 @@ public class FirstTest {
                 .containsSubsequence("== 명언 앱 ==", "명언앱을 종료합니다.");
 
     }
+
+    @Test
+    @DisplayName("등록 - 명언 1개 입력")
+    void t5() {
+        String out = TestBot.run("등록\n현재를 사랑하라\n작가미상\n종료");
+
+        assertThat(out)
+                .containsSubsequence("명언 : ", "작가 : ");
+
+    }
+
 
 
 }
