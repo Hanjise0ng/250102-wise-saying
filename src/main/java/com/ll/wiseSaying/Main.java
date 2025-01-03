@@ -1,23 +1,48 @@
 package com.ll.wiseSaying;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        test2();
+    }
 
-        // System.in --> 표준 입력(키보드)
-        //
-        String str = "등록\n현재를 사랑하라.\n작자미상\n";
-        Scanner sc = new Scanner(str);
+    public static void test2() {
+        // System.out -> 표준 출력 -> 모니터(콘솔)
 
-        String s1 = sc.nextLine();
-        System.out.println("s1 = " + s1);
+        // 2. 출력문의 값을 문자열로 받아서 봇에게 줄 수 있다.
+        PrintStream origin = System.out;
 
-        String s2 = sc.nextLine();
-        System.out.println("s2 = " + s2);
+        ByteArrayOutputStream out = new ByteArrayOutputStream(); // 비어있는 스트림
+        System.setOut(new PrintStream(out));
 
-        String s3 = sc.nextLine();
-        System.out.println("s3 = " + s3);
+        System.out.println("hello");
+
+        System.setOut(origin);
+
+        String str = out.toString();
+        System.out.println(str);
+
+    }
+
+    public static void test1() {
+        // System.in --> 표준 입력
+
+        // 1. 입력을 봇에게 맡기 수 있다.
+        Scanner scan = new Scanner("등록\n현재를 사랑하라.\n작자미상\n");
+
+        String val1 = scan.nextLine();
+        System.out.println(val1);
+
+        String val2 = scan.nextLine();
+        System.out.println(val2);
+
+        String val3 = scan.nextLine();
+        System.out.println(val3);
+
+        //테스트봇 만들기
 
         App app = new App();
         app.run();
