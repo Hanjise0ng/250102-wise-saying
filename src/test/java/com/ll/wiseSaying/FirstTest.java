@@ -15,8 +15,8 @@ public class FirstTest {
 
     @Test
     void t2() {
-        App app = new App();
-        app.run();
+//        App app = new App();
+//        app.run();
 
         // aaa가 출력되는가?
         // assertThat(result).isEqualTo("aaa");
@@ -24,8 +24,10 @@ public class FirstTest {
 
     @Test
     void t3() {
-        String out = TestBot.run("명령 )");
-        assertThat(out).contains("명언앱을 종료합니다.");
+        String out = TestBot.run("");
+        assertThat(out)
+                .contains("명령 )")
+                .contains("명언앱을 종료합니다.");
 
         // 출력값을 체크
     }
@@ -34,6 +36,7 @@ public class FirstTest {
     @DisplayName("명령을 여러번 입력할 수 있다.")
     void t4() {
         String out = TestBot.run("""
+                등록
                 등록
                 종료
                 """);
@@ -44,7 +47,7 @@ public class FirstTest {
         long count = out.split("명령 \\)").length - 1;
 
         // 횟수를 검증
-        assertThat(count).isEqualTo(5);
+        assertThat(count).isEqualTo(3);
     }
 
     @Test
