@@ -1,5 +1,3 @@
-package com.ll.wiseSaying;
-
 import java.util.Scanner;
 
 public class App {
@@ -26,7 +24,13 @@ public class App {
             } else if(cmd.equals("등록")) {
 
                 System.out.println("명언 : ");
+                String content = sc.nextLine();
+
                 System.out.println("작가 : ");
+                String author = sc.nextLine();
+
+//                WiseSaying wiseSaying = new WiseSaying(id, content, author);
+
                 System.out.println("%d번 명언이 등록되었습니다.".formatted(++lastId));
 
             }
