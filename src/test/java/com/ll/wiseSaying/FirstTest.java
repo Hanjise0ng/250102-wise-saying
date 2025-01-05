@@ -24,7 +24,7 @@ public class FirstTest {
 
     @Test
     void t3() {
-        String out = TestBot.run("");
+        String out = TestBot.run("명령 )");
         assertThat(out).contains("명언앱을 종료합니다.");
 
         // 출력값을 체크

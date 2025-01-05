@@ -11,20 +11,22 @@ public class Main {
 
     public static void test2() {
         // System.out -> 표준 출력 -> 모니터(콘솔)
+        // 출력문의 값을 문자열로 받아서 봇에게 줄 수 있다.
 
-        // 2. 출력문의 값을 문자열로 받아서 봇에게 줄 수 있다.
+        // 기존 출력 스트림 저장
         PrintStream origin = System.out;
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream(); // 비어있는 스트림
+        // 비어있는 스트림
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        // 출력 스트림 설정 변경
         System.setOut(new PrintStream(out));
-
+        // 출력문이 out이 가르키는 스트림에 전달
         System.out.println("hello");
-
+        // 기존 출력 스트림으로 다시 변경
         System.setOut(origin);
-
+        // out 변수가 참조하고 있는 스트림이 가지고 있는 값 문자열로 변환
         String str = out.toString();
+        //출력(모니터)
         System.out.println(str);
-
     }
 
     public static void test1() {
