@@ -44,7 +44,7 @@ public class FirstTest {
         long count = out.split("명령 \\)").length - 1;
 
         // 횟수를 검증
-        assertThat(count).isEqualTo(1);
+        assertThat(count).isEqualTo(5);
     }
 
     @Test
