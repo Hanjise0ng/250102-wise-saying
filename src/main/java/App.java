@@ -1,3 +1,4 @@
+import domain.wiseSaying.SystemController;
 import domain.wiseSaying.WiseSayingController;
 
 import java.util.Scanner;
@@ -6,10 +7,11 @@ public class App {
 
     private Scanner sc;
     private final WiseSayingController wiseSayingController;
-
+    private final SystemController systemController;
     public App(Scanner sc) {
         this.sc = sc;
         this.wiseSayingController = new WiseSayingController(sc);
+        this.systemController = new SystemController();
     }
 
     public void run() {
@@ -19,7 +21,7 @@ public class App {
             System.out.println("명령 ) ");
             String cmd = sc.nextLine();
             if(cmd.equals("종료")) {
-                System.out.println("명언앱을 종료합니다.");
+                systemController.exit();
                 break;
             } else if(cmd.equals("등록")) {
                 wiseSayingController.actionWrite();
