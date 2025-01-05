@@ -1,14 +1,21 @@
+import domain.wiseSaying.WiseSaying;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
     private Scanner sc;
     private int lastId;
+    private List<WiseSaying> wiseSayings;
 
     public App(Scanner sc) {
         this.sc = sc;
         this.lastId = 0;
+        this.wiseSayings = new ArrayList<>();
     }
+
     public void run() {
         System.out.println("== 명언 앱 ==");
 
@@ -25,14 +32,20 @@ public class App {
 
                 System.out.println("명언 : ");
                 String content = sc.nextLine();
-
                 System.out.println("작가 : ");
                 String author = sc.nextLine();
 
-//                WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                int id = ++lastId;
+                WiseSaying wiseSaying = new WiseSaying(id, content, author);
+                wiseSayings.add(wiseSaying);
 
-                System.out.println("%d번 명언이 등록되었습니다.".formatted(++lastId));
+                System.out.println("%d번 명언이 등록되었습니다.".formatted(id));
 
+//            } else if (cmd.equals("목록")) {
+//                System.out.println("번호 / 작가 / 명언");
+//                System.out.println("----------------------");
+//                System.out.println("2 / 작자미상 / 과거에 집착하지 마라.");
+//                System.out.println("1 / 작자미상 / 현재를 사랑하라.");
             }
         }
     }
