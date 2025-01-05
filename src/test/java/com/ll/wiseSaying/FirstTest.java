@@ -35,6 +35,7 @@ public class FirstTest {
     void t4() {
         String out = TestBot.run("");
 
+        // 문자열 순서 적용 (앞 문자열 뒤에 뒤 문자열 나와야 함, but 그 중간에 무슨 문자열이 와도 상관없음)
         assertThat(out)
                 .containsSubsequence("== 명언 앱 ==", "명언앱을 종료합니다.");
 
