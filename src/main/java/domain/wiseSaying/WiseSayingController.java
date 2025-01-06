@@ -35,8 +35,6 @@ public class WiseSayingController {
     }
 
     public void actionDelete(String cmd) {
-        // id=1
-        // ["id", "1"]
         String param = cmd.split("\\?")[1];
         String[] paramBits = param.split("=");
         String strId = paramBits[1];

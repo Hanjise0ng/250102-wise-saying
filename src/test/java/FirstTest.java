@@ -129,7 +129,6 @@ public class FirstTest {
 
     }
 
-
     @Test
     @DisplayName("삭제 - id를 이용해서 해당 id의 명언을 삭제할 수 있다. 입력: 삭제?id=1")
     void t10() {
@@ -166,7 +165,6 @@ public class FirstTest {
 
         assertThat(out)
                 .contains("1번 명언은 존재하지 않습니다.");
-
     }
     
 }
