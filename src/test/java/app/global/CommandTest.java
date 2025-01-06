@@ -44,8 +44,24 @@ public class CommandTest {
     void t5() {
         Command cmd = new Command("삭제?id=1");
         int id = cmd.getParam();
-
         assertThat(id).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("파라미터가 불완전할 때, 입력값 1 - 목록?expr=1=1, 입력값 2 - 목록?page, 입력값 3 - 삭제?id=aa")
+    void t6() {
+        Command cmd1 = new Command("목록?expr=1=1");
+        int param1 = cmd1.getParam();
+
+        Command cmd2 = new Command("목록?page");
+        int param2 = cmd1.getParam();
+
+        Command cmd3 = new Command("삭제?id=aa");
+        int param3 = cmd1.getParam();
+
+        assertThat(param1).isEqualTo("1=1");
+        assertThat(param2).isNull();
+        assertThat(param3).isEqualTo("aa");
     }
 
 }
