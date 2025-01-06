@@ -16,9 +16,9 @@ public class Util {
         public static void createFile(String pathValue) {
             Path filepath = Paths.get(pathValue);
             
-//            if (Files.exists(filepath)) {
-//                return;
-//            }
+            if (Files.exists(filepath)) {
+                return;
+            }
             try {
                 Files.createFile(filepath);
             } catch (Exception e) {
@@ -51,6 +51,9 @@ public class Util {
                 e.printStackTrace();
             }
 
+        }
+
+        public static void delete(String file) {
         }
     }
 

@@ -49,4 +49,19 @@ public class FileTest {
         assertThat(readContent).isEqualTo(writeContent);
     }
 
+    @Test
+    @DisplayName("파일 삭제")
+    void t5() {
+        // 파일 생성
+        String file = "test3.txt";
+        Util.File.createFile(file);
+        // 존재여부 확인
+        assertThat(Files.exists(Paths.get(file))).isTrue();
+
+        // 파일 삭제
+        Util.File.delete(file);
+        // 존재여부 확인
+        assertThat(Files.exists(Paths.get(file))).isFalse();
+    }
+
 }
