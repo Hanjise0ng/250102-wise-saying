@@ -1,23 +1,36 @@
 package app.standard;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class FileTest {
+
+    // 테스트 시작 전에 test 폴더 생성
+    @BeforeAll
+    static void beforeAll() {
+        Util.File.createDir("test");
+    }
+
+    // 테스트 종료 후에 test 폴더 삭제
+    @AfterAll
+    static void afterAll() {
+        Util.File.delete("test");
+    }
+
     @Test
     @DisplayName("최초의 file test")
-    void t1(){
+    void t1() {
         Util.File.test();
     }
 
     @Test
     @DisplayName("파일 생성. 내용이 없는 빈 파일 생성")
-    void t2(){
+    void t2() {
         String file = "test/test.txt";
 
         Util.File.createFile(file); // 파일 생성
@@ -51,21 +64,48 @@ public class FileTest {
         assertThat(readContent).isEqualTo(writeContent);
     }
 
-//    @Test
-//    @DisplayName("파일 삭제")
-//    void t5() {
-//        // 파일 생성
-//        String file = "test/test.txt";
-//
-//        Util.File.createFile(file);
-//        // 존재여부 확인
-//        assertThat(Files.exists(Paths.get(file))).isTrue();
-//
-//        // 파일 삭제
-//        Util.File.delete(file);
-//        // 존재여부 확인
-//        assertThat(Files.exists(Paths.get(file))).isFalse();
-//    }
+    @Test
+    @DisplayName("파일 삭제")
+    void t5() {
+        // 파일 생성
+        String file = "test/test.txt";
 
+        Util.File.createFile(file);
+        // 존재여부 확인
+        assertThat(Files.exists(Paths.get(file))).isTrue();
+
+        // 파일 삭제
+        Util.File.delete(file);
+        // 존재여부 확인
+        assertThat(Files.exists(Paths.get(file))).isFalse();
+    }
+
+    @Test
+    @DisplayName("폴더 생성")
+    void t6() {
+
+        String dirPath = "test";
+
+        Util.File.createDir(dirPath);
+
+        assertThat(Files.exists(Paths.get(dirPath)))
+                .isTrue();
+
+        assertThat(Files.isDirectory(Path.of(dirPath)))
+                .isTrue();
+
+    }
+
+    @Test
+    @DisplayName("폴더 삭제")
+    void t7() {
+
+        String dirPath = "test";
+
+        Util.File.delete(dirPath);
+
+        assertThat(Files.exists(Paths.get(dirPath)))
+                .isFalse();
+    }
 
 }
