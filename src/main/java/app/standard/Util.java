@@ -25,6 +25,10 @@ public class Util {
             }
 
         }
+
+        public static String readAsString(String file) {
+            return "";
+        }
     }
 
 }
