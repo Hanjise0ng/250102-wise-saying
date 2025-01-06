@@ -23,7 +23,19 @@ public class WiseSaying {
         return content;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getAuthor() {
         return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public boolean isNew() {
+        return this.id == 0;
     }
 }
