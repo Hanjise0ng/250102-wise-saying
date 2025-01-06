@@ -14,18 +14,7 @@ public class Util {
         }
 
         public static void createFile(String pathValue) {
-            Path filepath = Paths.get(pathValue);
-            
-            if (Files.exists(filepath)) {
-                return;
-            }
-            try {
-                Files.createFile(filepath);
-            } catch (Exception e) {
-                System.out.println("파일 생성 중 실패");
-                e.printStackTrace();
-            }
-
+            write(pathValue, "");
         }
 
         public static String readAsString(String file) {
@@ -50,7 +39,6 @@ public class Util {
                 System.out.println("파일 쓰기 실패");
                 e.printStackTrace();
             }
-
         }
 
         public static void delete(String file) {
@@ -64,5 +52,4 @@ public class Util {
             }
         }
     }
-
 }
