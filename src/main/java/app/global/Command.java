@@ -42,7 +42,7 @@ public class Command {
         return paramMap.get(key);
     }
 
-    public int getParamInt(String key) {
+    public int getParamAsInt(String key) {
         try {
             String param = paramMap.get(key);
             return Integer.parseInt(param);

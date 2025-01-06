@@ -43,7 +43,7 @@ public class CommandTest {
     @DisplayName("입력값 - 삭제?id=1 일 때, 파라미터를 달라고 하면 1이 나와야 한다.")
     void t5() {
         Command cmd = new Command("삭제?id=1");
-        int id = cmd.getParamInt("id");
+        int id = cmd.getParamAsInt("id");
         assertThat(id).isEqualTo(1);
     }
 
@@ -74,4 +74,5 @@ public class CommandTest {
         assertThat(param1).isEqualTo("val1");
         assertThat(param2).isEqualTo("val2");
     }
+
 }
