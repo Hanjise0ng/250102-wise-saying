@@ -54,6 +54,14 @@ public class Util {
         }
 
         public static void delete(String file) {
+            Path filepath = Paths.get(file);
+
+            try {
+                Files.delete(filepath);
+            } catch (IOException e) {
+                System.out.println("파일 삭제 실패");
+                e.printStackTrace();
+            }
         }
     }
 
