@@ -171,7 +171,7 @@ public class WiseSayingControllerTest {
     }
 
     @Test
-    @DisplayName("수정 - id를 이용해서 해당 ")
+    @DisplayName("수정 - id를 이용해서 해당 id의 명언을 수정할 수 있다. 이때 기존의 명언과 작가가 나와야 함. 입력값 - 수정?id=1")
     void t12() {
         String out = TestBot.run("""
                 등록
@@ -180,13 +180,15 @@ public class WiseSayingControllerTest {
                 등록
                 과거에 집착하지 마라.
                 작자미상
-                삭제?id=1
-                삭제?id=1
+                수정?id=1
+                새 명언 내용
+                새 작가
                 목록
                 """);
 
         assertThat(out)
-                .contains("1번 명언은 존재하지 않습니다.");
+                .doesNotContain("1 / 작자미상 / 현재를 사랑하라.")
+                .contains("1 / 새 작가 / 새 명언 내용");
     }
     
 }
