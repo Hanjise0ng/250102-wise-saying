@@ -43,7 +43,8 @@ public class CommandTest {
     @DisplayName("입력값 - 삭제?id=1 일 때, 파라미터를 달라고 하면 1이 나와야 한다.")
     void t5() {
         Command cmd = new Command("삭제?id=1");
-        int id = cmd.getParam();
+        String strId = cmd.getParam();
+        int id = Integer.parseInt(strId);
         assertThat(id).isEqualTo(1);
     }
 
@@ -51,13 +52,13 @@ public class CommandTest {
     @DisplayName("파라미터가 불완전할 때, 입력값 1 - 목록?expr=1=1, 입력값 2 - 목록?page, 입력값 3 - 삭제?id=aa")
     void t6() {
         Command cmd1 = new Command("목록?expr=1=1");
-        int param1 = cmd1.getParam();
+        String param1 = cmd1.getParam();
 
         Command cmd2 = new Command("목록?page");
-        int param2 = cmd1.getParam();
+        String param2 = cmd2.getParam();
 
         Command cmd3 = new Command("삭제?id=aa");
-        int param3 = cmd1.getParam();
+        String param3 = cmd3.getParam();
 
         assertThat(param1).isEqualTo("1=1");
         assertThat(param2).isNull();
