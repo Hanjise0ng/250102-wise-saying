@@ -26,7 +26,7 @@ public class FileTest {
     }
 
     @Test
-    @DisplayName("파일 내용 수정")
+    @DisplayName("파일 내용 읽어오기")
     void t3() {
 
         String testContent = "Hello, World!";
