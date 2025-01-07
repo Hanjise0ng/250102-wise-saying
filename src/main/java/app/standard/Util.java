@@ -33,6 +33,10 @@ public class Util {
         public static void write(String file, String content) {
             Path filepath = Paths.get(file);
 
+            if(filepath.getParent() != null) {
+                createDir(filepath.getParent().toString());
+            }
+
             try {
                 Files.writeString(filepath, content, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
             } catch (IOException e) {
