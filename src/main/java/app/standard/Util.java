@@ -32,7 +32,7 @@ public class Util {
         public static void write(String file, String content) {
             Path filepath = Paths.get(file);
 
-            if(filepath.getParent() != null) {
+            if (filepath.getParent() != null) {
                 createDir(filepath.getParent().toString());
             }
 
@@ -47,7 +47,7 @@ public class Util {
         public static void delete(String file) {
             Path filepath = Paths.get(file);
 
-            if(!Files.exists(filepath)) return;
+            if (!Files.exists(filepath)) return;
 
             try {
                 Files.delete(filepath);
@@ -70,7 +70,7 @@ public class Util {
 
             Path folderPath = Paths.get(path);
 
-            if(!Files.exists(folderPath)) return;
+            if (!Files.exists(folderPath)) return;
 
             try {
                 // 디렉토리 및 내용 삭제
@@ -101,7 +101,16 @@ public class Util {
 
     public static class Json {
         public static String mapToJson(Map<String, Object> map) {
-            return null;
+
+            String tmp = "";
+
+            for (String key : map.keySet()) {
+                String value = (String)map.get(key);
+                tmp = "{\n" + "    \"%s\" : " + "\"%s\"" + "\n}";
+                tmp = tmp.formatted(key, value);
+            }
+
+            return tmp;
         }
     }
 }
