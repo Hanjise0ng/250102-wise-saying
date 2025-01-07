@@ -19,7 +19,7 @@ public class FileTest {
     // 테스트 종료 후에 test 폴더 삭제
     @AfterAll
     static void afterAll() {
-        Util.File.delete("test");
+        Util.File.deleteForce("test");
     }
 
     @Test
