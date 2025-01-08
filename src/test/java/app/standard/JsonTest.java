@@ -4,6 +4,9 @@ import app.domain.wiseSaying.WiseSaying;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -78,6 +81,33 @@ public class JsonTest {
         String jsonStr = Util.Json.mapToJson(wiseSayingMap);
 
         assertThat(jsonStr)
+                .isEqualTo("""
+                        {
+                            "id" : 1,
+                            "content" : "aaa",
+                            "author" : "bbb"
+                        }
+                        """.stripIndent().trim());
+    }
+
+    @Test
+    @DisplayName("WiseSaying을 Map으로 변환 -> Json으로 변환")
+    void t5() {
+
+        WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
+        Map<String, Object> wiseSayingMap = wiseSaying.toMap();
+
+        String jsonStr = Util.Json.mapToJson(wiseSayingMap);
+        String filePath = "testDB/%d.json".formatted(wiseSaying.getId());
+
+        Util.Json.writeAsMap(filePath, wiseSayingMap);
+
+        boolean rst = Files.exists(Path.of(filePath));
+        assertThat(rst).isTrue();
+
+        String content = Util.File.readAsString(filePath);
+        assertThat(content).isEqualTo(jsonStr);
+        assertThat(content)
                 .isEqualTo("""
                         {
                             "id" : 1,
