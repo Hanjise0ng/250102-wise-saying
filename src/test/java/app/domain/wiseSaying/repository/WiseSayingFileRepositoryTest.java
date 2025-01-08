@@ -13,7 +13,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class WiseSayingFileRepositoryTest {
 
-    WiseSayingFileRepository wiseSayingFileRepository = new WiseSayingFileRepository();
+    WiseSayingRepository wiseSayingRepository = new WiseSayingFileRepository();
 
     @Test
     @DisplayName("명언 저장")
@@ -21,7 +21,7 @@ public class WiseSayingFileRepositoryTest {
 
         WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
 
-        wiseSayingFileRepository.save(wiseSaying);
+        wiseSayingRepository.save(wiseSaying);
 
         String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
 
@@ -40,11 +40,11 @@ public class WiseSayingFileRepositoryTest {
 
         WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
 
-        wiseSayingFileRepository.save(wiseSaying);
+        wiseSayingRepository.save(wiseSaying);
 
         String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
 
-        boolean delRst= wiseSayingFileRepository.deleteById(wiseSaying.getId());
+        boolean delRst= wiseSayingRepository.deleteById(wiseSaying.getId());
         boolean rst = Files.exists(Path.of(filePath));
 
         assertThat(rst).isFalse();
