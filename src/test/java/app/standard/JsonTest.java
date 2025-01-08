@@ -90,7 +90,7 @@ public class JsonTest {
     }
 
     @Test
-    @DisplayName("WiseSaying을 Map으로 변환 -> Json으로 변환")
+    @DisplayName("Map을 넘기면 Json 파일로 저장하기")
     void t5() {
 
         WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
@@ -114,6 +114,28 @@ public class JsonTest {
                             "author" : "bbb"
                         }
                         """.stripIndent().trim());
+    }
+
+    @Test
+    @DisplayName("Json 문자열을 Map으로 변환하기")
+    void t6() {
+
+        String jsonStr = """
+                {
+                    "id" : 1,
+                    "content" : "aaa",
+                    "author" : "bbb"
+                }
+                """;
+
+        Map<String, Object> map = Util.Json.jsonToMap(jsonStr);
+
+        assertThat(map)
+                .hasSize(3)
+                .containsEntry("id", 1)
+                .containsEntry("content", "aaa")
+                .containsEntry("author", "bbb");
+
     }
 
 }

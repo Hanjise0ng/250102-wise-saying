@@ -123,5 +123,9 @@ public class Util {
             String jsonStr = mapToJson(wiseSayingMap);
             File.write(filePath, jsonStr);
         }
+
+        public static Map<String, Object> jsonToMap(String jsonStr) {
+            return null;
+        }
     }
 }
