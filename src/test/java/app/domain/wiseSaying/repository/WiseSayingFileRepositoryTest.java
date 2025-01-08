@@ -24,7 +24,7 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingRepository.save(wiseSaying);
 
-        String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
+        String filePath = "db/test/wiseSaying/%d.json".formatted(wiseSaying.getId());
 
         boolean rst = Files.exists(Path.of(filePath));
         assertThat(rst).isTrue();
@@ -43,7 +43,7 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingRepository.save(wiseSaying);
 
-        String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
+        String filePath = "db/test/wiseSaying/%d.json".formatted(wiseSaying.getId());
 
         boolean delRst= wiseSayingRepository.deleteById(wiseSaying.getId());
         boolean rst = Files.exists(Path.of(filePath));
@@ -58,7 +58,7 @@ public class WiseSayingFileRepositoryTest {
         WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
         wiseSayingRepository.save(wiseSaying);
 
-        String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
+        assertThat(Files.exists(Path.of("db/test/wiseSaying/%d.json".formatted(wiseSaying.getId())))).isTrue();
 
         Optional<WiseSaying> opWiseSaying = wiseSayingRepository.findById(wiseSaying.getId());
         WiseSaying foundWiseSaying = opWiseSaying.orElse(null);
