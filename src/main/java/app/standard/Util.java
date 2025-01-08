@@ -3,6 +3,7 @@ package app.standard;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Util {
@@ -102,15 +103,27 @@ public class Util {
     public static class Json {
         public static String mapToJson(Map<String, Object> map) {
 
-            String tmp = "";
+            StringBuilder jsonBuilder = new StringBuilder();
 
-            for (String key : map.keySet()) {
+            jsonBuilder.append("{\n");
+
+            int i = 0;
+            for(String key : map.keySet()) {
                 String value = (String)map.get(key);
-                tmp = "{\n" + "    \"%s\" : " + "\"%s\"" + "\n}";
-                tmp = tmp.formatted(key, value);
+                String tmp = "    \"%s\" : " + "\"%s\"";
+                jsonBuilder.append(tmp.formatted(key, value));
+
+                if(i == map.size() - 1) {
+                    break;
+                }
+
+                jsonBuilder.append(",\n");
+                i++;
             }
 
-            return tmp;
+            jsonBuilder.append("\n}");
+
+            return jsonBuilder.toString();
         }
     }
 }
