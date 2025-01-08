@@ -2,6 +2,7 @@ package app.domain.wiseSaying.repository;
 
 import app.domain.wiseSaying.WiseSaying;
 import app.standard.Util;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class WiseSayingFileRepositoryTest {
 
     WiseSayingRepository wiseSayingRepository = new WiseSayingFileRepository();
+
+    @AfterAll
+    static void afterAll() {
+        Util.File.deleteForce("db/test");
+    }
 
     @Test
     @DisplayName("명언 저장")

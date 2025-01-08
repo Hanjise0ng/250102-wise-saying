@@ -23,7 +23,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     public WiseSaying save(WiseSaying wiseSaying) {
 
         //파일 저장
-        Util.Json.writeAsMap("db/test/wiseSaying/%d.json".formatted(wiseSaying.getId()), wiseSaying.toMap());
+        Util.Json.writeAsMap(getFilePath(wiseSaying.getId()), wiseSaying.toMap());
         return wiseSaying;
     }
 
@@ -32,7 +32,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     }
 
     public boolean deleteById(int id) {
-        return Util.File.delete("db/test/wiseSaying/%d.json".formatted(id));
+        return Util.File.delete(getFilePath(id));
     }
 
     public Optional<WiseSaying> findById(int id) {
