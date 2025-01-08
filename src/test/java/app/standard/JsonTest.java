@@ -23,4 +23,21 @@ public class JsonTest {
                         }
                         """.stripIndent().trim());
     }
+
+    @Test
+    @DisplayName("Map을 Json으로 변환2 - 속성이 2개")
+    void t2() {
+        Map<String, Object> map = Map.of("name", "홍길동", "home", "서울");
+
+        String jsonStr = Util.Json.mapToJson(map);
+
+        assertThat(jsonStr)
+                .isEqualTo("""
+                        {
+                            "name" : "홍길동",
+                            "home" : "서울"
+                        }
+                        """.stripIndent().trim());
+    }
+
 }
