@@ -47,16 +47,18 @@ public class Util {
             }
         }
 
-        public static void delete(String file) {
+        public static boolean delete(String file) {
             Path filepath = Paths.get(file);
 
-            if (!Files.exists(filepath)) return;
+            if (!Files.exists(filepath)) return false;
 
             try {
                 Files.delete(filepath);
+                return true;
             } catch (IOException e) {
                 System.out.println("파일 삭제 실패");
                 e.printStackTrace();
+                return false;
             }
         }
 
