@@ -23,7 +23,6 @@ public class WiseSayingFileRepositoryTest {
 
         wiseSayingFileRepository.save(wiseSaying);
 
-        // db/wiseSaying/1.json 존재 확인
         String filePath = "db/wiseSaying/%d.json".formatted(wiseSaying.getId());
 
         boolean rst = Files.exists(Path.of(filePath));

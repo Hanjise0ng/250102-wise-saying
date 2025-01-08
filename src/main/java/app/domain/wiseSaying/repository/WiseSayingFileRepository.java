@@ -1,6 +1,7 @@
 package app.domain.wiseSaying.repository;
 
 import app.domain.wiseSaying.WiseSaying;
+import app.standard.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,15 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
 
     public WiseSaying save(WiseSaying wiseSaying) {
 
-        //수정
-        if(!wiseSaying.isNew()) {
-            return wiseSaying;
-        }
+//        if(!wiseSaying.isNew()) {
+//            return wiseSaying;
+//        }
+//
+//        int id = ++lastId;
+//        wiseSaying.setId(id);
 
-        int id = ++lastId;
-        wiseSaying.setId(id);
-        wiseSayingList.add(wiseSaying);
+        //파일 저장
+        Util.Json.writeAsMap("db/wiseSaying/%d.json".formatted(wiseSaying.getId()), wiseSaying.toMap());
 
         return wiseSaying;
     }
