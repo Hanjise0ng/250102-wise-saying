@@ -120,7 +120,8 @@ public class Util {
         }
 
         public static void writeAsMap(String filePath, Map<String, Object> wiseSayingMap) {
-            return;
+            String jsonStr = mapToJson(wiseSayingMap);
+            File.write(filePath, jsonStr);
         }
     }
 }
