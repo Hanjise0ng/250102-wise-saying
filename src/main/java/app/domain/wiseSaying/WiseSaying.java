@@ -26,6 +26,11 @@ public class WiseSaying {
     }
 
     public Map<String, Object> toMap() {
-        return null;
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("id", this.id);
+        map.put("content", this.content);
+        map.put("author", this.author);
+
+        return map;
     }
 }
