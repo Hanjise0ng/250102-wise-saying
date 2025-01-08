@@ -1,5 +1,8 @@
 package app.domain.wiseSaying;
 
+import app.domain.wiseSaying.repository.WiseSayingMemRepository;
+import app.domain.wiseSaying.repository.WiseSayingRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +11,7 @@ public class WiseSayingService {
     private final WiseSayingRepository wiseSayingRepository;
 
     public WiseSayingService() {
-        this.wiseSayingRepository = new WiseSayingRepository();
+        this.wiseSayingRepository = new WiseSayingMemRepository();
     }
 
     public WiseSaying write(String content, String author) {
