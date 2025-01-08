@@ -145,14 +145,21 @@ public class Util {
                     .forEach(p -> { // p => ["id", 1]
                         String key = p[0].replaceAll("\"", "");
                         String value = p[1];
-
+                        
+                        // 문자열
                         if(value.startsWith("\"")) {
                             resultMap.put(key, value.replaceAll("\"", ""));
-                        } else if(value.contains(".")) {
+                        } 
+                        // 실수
+                        else if(value.contains(".")) {
                             resultMap.put(key, Double.parseDouble(value));
-                        } else if(value.equals("true") || value.equals("false")) {
+                        }
+                        // 논리
+                        else if(value.equals("true") || value.equals("false")) {
                             resultMap.put(key, Boolean.parseBoolean(value));
-                        } else {
+                        } 
+                        // 숫자
+                        else {
                             resultMap.put(key, Integer.parseInt(value));
                         }
                     });
