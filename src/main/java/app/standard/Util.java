@@ -3,9 +3,7 @@ package app.standard;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Util {
@@ -102,6 +100,22 @@ public class Util {
                 System.err.println("폴더 삭제 중 오류 발생: " + e.getMessage());
             }
         }
+
+        public static List<Path> getPaths(String dirPathStr) {
+
+            Path dirPath = Paths.get(dirPathStr);
+
+            try {
+                return Files.walk(dirPath)
+                        .filter(Files::isRegularFile)
+                        .toList();
+
+            } catch (Exception e) {
+                System.out.println("파일 목록 가져오기 실패");
+                e.printStackTrace();
+            }
+            return List.of();
+        }
     }
 
     public static class Json {
@@ -150,11 +164,11 @@ public class Util {
                     .forEach(p -> { // p => ["id", 1]
                         String key = p[0].replaceAll("\"", "");
                         String value = p[1];
-                        
+
                         // 문자열
                         if(value.startsWith("\"")) {
                             resultMap.put(key, value.replaceAll("\"", ""));
-                        } 
+                        }
                         // 실수
                         else if(value.contains(".")) {
                             resultMap.put(key, Double.parseDouble(value));
@@ -162,7 +176,7 @@ public class Util {
                         // 논리
                         else if(value.equals("true") || value.equals("false")) {
                             resultMap.put(key, Boolean.parseBoolean(value));
-                        } 
+                        }
                         // 숫자
                         else {
                             resultMap.put(key, Integer.parseInt(value));

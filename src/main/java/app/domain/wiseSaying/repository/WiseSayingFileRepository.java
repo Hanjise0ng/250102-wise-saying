@@ -3,6 +3,7 @@ package app.domain.wiseSaying.repository;
 import app.domain.wiseSaying.WiseSaying;
 import app.standard.Util;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +13,9 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
 
     private static final String DB_PATH = "db/test/wiseSaying/";
 
-    private final List<WiseSaying> wiseSayingList;
     private int lastId;
 
     public WiseSayingFileRepository() {
-        this.wiseSayingList = new ArrayList<>();
         System.out.println("파일 DB 사용");
     }
 
@@ -28,7 +27,25 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     }
 
     public List<WiseSaying> findAll() {
-        return wiseSayingList;
+//        명령형
+//        List<Path> paths = Util.File.getPaths(DB_PATH);
+//        List<WiseSaying> wiseSayingList = new ArrayList<>();
+//
+//        for(Path path : paths) {
+//            String filePath = path.toString();
+//            Map<String, Object> map = Util.Json.readAsMap(filePath);
+//            WiseSaying wiseSaying = WiseSaying.fromMap(map);
+//            wiseSayingList.add(wiseSaying);
+//        }
+//
+//        return wiseSayingList;
+
+//        선언형
+        return Util.File.getPaths(DB_PATH).stream()
+                .map(Path::toString)
+                .map(Util.Json::readAsMap)
+                .map(WiseSaying::fromMap)
+                .toList();
     }
 
     public boolean deleteById(int id) {
