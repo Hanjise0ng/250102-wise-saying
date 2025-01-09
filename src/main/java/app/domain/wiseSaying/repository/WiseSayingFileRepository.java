@@ -20,8 +20,7 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     }
 
     public WiseSaying save(WiseSaying wiseSaying) {
-
-        //파일 저장
+        wiseSaying.setId(++lastId);
         Util.Json.writeAsMap(getFilePath(wiseSaying.getId()), wiseSaying.toMap());
         return wiseSaying;
     }

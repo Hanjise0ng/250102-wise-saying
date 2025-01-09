@@ -12,14 +12,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FileTest {
 
     // 테스트 시작 전에 test 폴더 생성
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+    void beforeEach() {
         Util.File.createDir("testDB");
     }
 
     // 테스트 종료 후에 test 폴더 삭제
-    @AfterAll
-    static void afterAll() {
+    @AfterEach
+    void afterEach() {
         Util.File.deleteForce("testDB");
     }
 
