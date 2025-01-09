@@ -20,13 +20,17 @@ public class WiseSayingFileRepository implements WiseSayingRepository {
     }
 
     public WiseSaying save(WiseSaying wiseSaying) {
-
-        if (wiseSaying.isNew()) {
+        boolean isNew = wiseSaying.isNew();
+        if (isNew) {
             wiseSaying.setId(getLastId() + 1);
         }
 
         Util.Json.writeAsMap(getFilePath(wiseSaying.getId()), wiseSaying.toMap());
-        setLastId(wiseSaying.getId());
+
+        if (isNew) {
+            setLastId(wiseSaying.getId());
+        }
+
         return wiseSaying;
     }
 
