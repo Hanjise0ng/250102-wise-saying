@@ -5,8 +5,9 @@ import org.junit.jupiter.api.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FileTest {
 
@@ -127,6 +128,33 @@ public class FileTest {
 
         boolean rst = Files.exists(Paths.get(path));
         assertThat(rst).isFalse();
+    }
+    
+    @Test
+    @DisplayName("특정 폴더의 파일 목록을 가져오기")
+    void t10() {
+
+        String path1 = "testDB/test1.txt";
+        String path2 = "testDB/test2.txt";
+        String path3 = "testDB/test3.txt";
+
+        Util.File.write(path1, "content1");
+        Util.File.write(path2, "content2");
+        Util.File.write(path3, "content3");
+
+        assertThat(Files.exists(Paths.get(path1))).isTrue();
+        assertThat(Files.exists(Paths.get(path2))).isTrue();
+        assertThat(Files.exists(Paths.get(path3))).isTrue();
+
+        List<Path> paths = Util.File.getPaths("testDB/");
+
+        assertThat(paths)
+                .hasSize(3)
+                .contains(Paths.get(path1))
+                .contains(Paths.get(path2))
+                .contains(Paths.get(path3));
+
+
     }
 
 }
