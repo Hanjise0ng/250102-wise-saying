@@ -30,6 +30,10 @@ public class Util {
             return "";
         }
 
+        public static void write(String file, int content) {
+            write(file, String.valueOf(content));
+        }
+
         public static void write(String file, String content) {
             Path filepath = Paths.get(file);
 
@@ -115,6 +119,10 @@ public class Util {
                 e.printStackTrace();
             }
             return List.of();
+        }
+
+        public static boolean exists(String filePath) {
+            return Files.exists(Paths.get(filePath));
         }
     }
 
