@@ -1,12 +1,28 @@
 package app.domain.wiseSaying;
 
+import app.global.AppConfig;
 import app.standard.TestBot;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import app.standard.Util;
+import org.junit.jupiter.api.*;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class WiseSayingControllerTest {
+
+    @BeforeAll
+    static void beforeAll() {
+        AppConfig.setTestMode();
+    }
+
+    @BeforeEach
+    void before() {
+        Util.File.deleteForce(AppConfig.getDBPath());
+    }
+
+    @AfterEach
+    void after() {
+        Util.File.deleteForce(AppConfig.getDBPath());
+    }
 
     @Test
     void t1() {
@@ -46,13 +62,10 @@ public class WiseSayingControllerTest {
                 종료
                 """);
 
-        // 명령 ) 횟수를 세서 검증해야 함.
-
-        // 전체 문자열에서 "명령 )"의 등장 횟수 계산
+        // "명령 )"의 출현 횟수를 계산
         long count = out.split("명령 \\)").length - 1;
-
-        // 횟수를 검증
-        assertThat(count).isEqualTo(3);
+        // 검증
+        assertThat(count).isEqualTo(3); // 기대하는 횟수에 따라 값 수정
     }
 
     @Test
@@ -60,7 +73,6 @@ public class WiseSayingControllerTest {
     void t5() {
         String out = TestBot.run("");
 
-        // 문자열 순서 적용 (앞 문자열 뒤에 뒤 문자열 나와야 함, but 그 중간에 무슨 문자열이 와도 상관없음)
         assertThat(out)
                 .containsSubsequence("== 명언 앱 ==", "명언앱을 종료합니다.");
 
@@ -104,12 +116,15 @@ public class WiseSayingControllerTest {
                 등록
                 현재를 사랑하라.
                 작자미상
+                등록
+                현재를 사랑하라.
+                작자미상
                 """);
 
         assertThat(out)
                 .contains("1번 명언이 등록되었습니다.")
-                .contains("2번 명언이 등록되었습니다.");
-
+                .contains("2번 명언이 등록되었습니다.")
+                .contains("3번 명언이 등록되었습니다.");
     }
 
     @Test
@@ -129,11 +144,10 @@ public class WiseSayingControllerTest {
                 .contains("번호 / 작가 / 명언")
                 .contains("----------------------")
                 .containsSubsequence("2 / 작자미상 / 과거에 집착하지 마라.", "1 / 작자미상 / 현재를 사랑하라.");
-
     }
 
     @Test
-    @DisplayName("삭제 - id를 이용해서 해당 id의 명언을 삭제할 수 있다. 입력: 삭제?id=1")
+    @DisplayName("삭제 - id를 이용해서 해당 id의 명언을 삭제할 수 있다. 입력 : 삭제?id=1")
     void t10() {
         String out = TestBot.run("""
                 등록
@@ -146,13 +160,14 @@ public class WiseSayingControllerTest {
                 목록
                 """);
 
+
         assertThat(out)
                 .contains("2 / 작자미상 / 과거에 집착하지 마라.")
                 .doesNotContain("1 / 작자미상 / 현재를 사랑하라.");
     }
 
     @Test
-    @DisplayName("삭제 예외 처리 - 없는 id로 삭제하면 예외")
+    @DisplayName("삭제 예외 처리 - 없는 id로 삭제를 시도하면 예외처리 메시지가 나온다.")
     void t11() {
         String out = TestBot.run("""
                 등록
@@ -163,7 +178,6 @@ public class WiseSayingControllerTest {
                 작자미상
                 삭제?id=1
                 삭제?id=1
-                목록
                 """);
 
         assertThat(out)
@@ -190,5 +204,7 @@ public class WiseSayingControllerTest {
                 .doesNotContain("1 / 작자미상 / 현재를 사랑하라.")
                 .contains("1 / 새 작가 / 새 명언 내용");
     }
-    
+
+
+
 }

@@ -1,6 +1,7 @@
 package app.domain.wiseSaying.repository;
 
 import app.domain.wiseSaying.WiseSaying;
+import app.global.AppConfig;
 import app.standard.Util;
 import org.junit.jupiter.api.*;
 
@@ -14,75 +15,87 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class WiseSayingFileRepositoryTest {
 
-    WiseSayingFileRepository wiseSayingRepository = new WiseSayingFileRepository();
+    private WiseSayingFileRepository wiseSayingRepository = new WiseSayingFileRepository();
+
+    @BeforeAll
+    static void beforeAll() {
+        AppConfig.setTestMode();
+    }
 
     @BeforeEach
     void beforeEach() {
-        Util.File.deleteForce("db/test");
+        Util.File.deleteForce(AppConfig.getDBPath());
     }
 
     @AfterEach
     void afterEach() {
-        Util.File.deleteForce("db/test");
+        Util.File.deleteForce(AppConfig.getDBPath());
     }
 
     @Test
     @DisplayName("명언 저장")
     void t1() {
 
-        WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
+        WiseSaying wiseSaying = new WiseSaying(1,"aaa", "bbb");
 
         wiseSayingRepository.save(wiseSaying);
 
-        String filePath = "db/test/wiseSaying/%d.json".formatted(wiseSaying.getId());
+        String filePath = WiseSayingFileRepository.getFilePath(wiseSaying.getId());
 
         boolean rst = Files.exists(Path.of(filePath));
         assertThat(rst).isTrue();
 
-        Map<String, Object> map = Util.Json.readAsMap(filePath);
-        WiseSaying savedWiseSaying = WiseSaying.fromMap(map);
+        Map<String, Object> map =  Util.Json.readAsMap(filePath);
+        WiseSaying restoredWiseSaying = WiseSaying.fromMap(map);
 
-        assertThat(wiseSaying).isEqualTo(savedWiseSaying);
+        System.out.println(wiseSaying);
+        System.out.println(restoredWiseSaying);
+
+        assertThat(wiseSaying).isEqualTo(restoredWiseSaying);
+
     }
 
     @Test
     @DisplayName("명언 삭제")
     void t2() {
 
-        WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
+        WiseSaying wiseSaying = new WiseSaying(1,"aaa", "bbb");
 
         wiseSayingRepository.save(wiseSaying);
+        String filePath = WiseSayingFileRepository.getFilePath(wiseSaying.getId());
 
-        String filePath = "db/test/wiseSaying/%d.json".formatted(wiseSaying.getId());
+        boolean delRst = wiseSayingRepository.deleteById(1);
 
-        boolean delRst= wiseSayingRepository.deleteById(wiseSaying.getId());
         boolean rst = Files.exists(Path.of(filePath));
-
         assertThat(rst).isFalse();
         assertThat(delRst).isTrue();
     }
 
     @Test
-    @DisplayName("id로 명언 가져오기")
+    @DisplayName("아이디로 해당 명언 가져오기")
     void t3() {
-        WiseSaying wiseSaying = new WiseSaying(1, "aaa", "bbb");
+
+        WiseSaying wiseSaying = new WiseSaying(1,"aaa", "bbb");
         wiseSayingRepository.save(wiseSaying);
 
-        assertThat(Files.exists(Path.of("db/test/wiseSaying/%d.json".formatted(wiseSaying.getId())))).isTrue();
+        String filePath = WiseSayingFileRepository.getFilePath(wiseSaying.getId());
+        assertThat(Files.exists(Path.of(filePath))).isTrue();
 
-        Optional<WiseSaying> opWiseSaying = wiseSayingRepository.findById(wiseSaying.getId());
+        Optional<WiseSaying> opWiseSaying = wiseSayingRepository.findById(1);
         WiseSaying foundWiseSaying = opWiseSaying.orElse(null);
 
         assertThat(foundWiseSaying).isNotNull();
         assertThat(foundWiseSaying).isEqualTo(wiseSaying);
+
     }
 
     @Test
     @DisplayName("모든 명언 가져오기")
     void t4() {
-        WiseSaying wiseSaying1 = new WiseSaying(1, "aaa", "bbb");
-        WiseSaying wiseSaying2 = new WiseSaying(2, "ccc", "ddd");
-        WiseSaying wiseSaying3 = new WiseSaying(3, "eee", "fff");
+
+        WiseSaying wiseSaying1 = new WiseSaying(1,"aaa1", "bbb1");
+        WiseSaying wiseSaying2 = new WiseSaying(2,"aaa2", "bbb2");
+        WiseSaying wiseSaying3 = new WiseSaying(3,"aaa3", "bbb3");
 
         wiseSayingRepository.save(wiseSaying1);
         wiseSayingRepository.save(wiseSaying2);
@@ -98,14 +111,19 @@ public class WiseSayingFileRepositoryTest {
     @Test
     @DisplayName("lastId 가져오기")
     void t5() {
-        WiseSaying wiseSaying1 = new WiseSaying( "aaa1", "bbb");
+
+        WiseSaying wiseSaying1 = new WiseSaying("aaa1", "bbb1");
         wiseSayingRepository.save(wiseSaying1);
 
-        WiseSaying wiseSaying2 = new WiseSaying( "aaa1", "bbb");
+        WiseSaying wiseSaying2 = new WiseSaying("aaa1", "bbb1");
         wiseSayingRepository.save(wiseSaying2);
+
 
         int lastId = wiseSayingRepository.getLastId();
 
         assertThat(lastId).isEqualTo(wiseSaying2.getId());
+
     }
+
+
 }
