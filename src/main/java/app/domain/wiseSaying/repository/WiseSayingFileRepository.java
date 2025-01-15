@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class WiseSayingFileRepository implements WiseSayingRepository {
 
-    private static final String DB_PATH = AppConfig.getDBPath();
+    private static final String DB_PATH = AppConfig.getDBPath() + "/wiseSaying";
     private static final String ID_FILE_PATH = DB_PATH + "/lastid.txt";
 
     public WiseSayingFileRepository() {
